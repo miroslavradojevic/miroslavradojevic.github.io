@@ -4,39 +4,203 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Miroslav Radojevic Homepage</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        
-        <!-- <script src="" async defer></script> -->
-        <p></p>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content='text/html; charset=gb2312' http-equiv='Content-Type'>
+    <title>Miroslav Radojević Homepage</title>
 
-        <br/>
-            <div class="">
-                <br/>
-                <img style="float:left; margin: 16px 30px;" src="images/syziphus.svg.png" width="150">
-                <h1 style="font-size:24pt;font-family: Georgia">Miroslav Radojevic <small style="color:#6a5541">(Мирослав Радојевић)</small></h1>
-                <p>---</br>
-                </p>
-                <strong>Contact</strong>
-                <p>
-                    miroslav.radojevic AT gmail DOT com
-                </p>
-                <strong>Text</strong>
-                <p>Text paragraph.</p>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+    <!-- <link rel="stylesheet" href=""> -->
+    <script language="JavaScript">
+        $(function () {
+            $('.grid').masonry({
+                // options...
+                itemSelector: '.grid-item',
+                isFitWidth: true
+            });
+
+        });
+    </script>
+    <style type="text/css">
+        .grid-item {
+            width: 980px;
+            margin: 10px
+        }
+
+        .grid-item--width2 {
+            width: 980px;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+        }
+
+        a:hover {
+            text-decoration: none;
+            /* font-weight: bold; */
+            border-bottom: 1px solid #ccc;
+        }
+
+        div.paper {
+            clear: both;
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+            /* border: 1px solid #ddd; */
+            background: #fff;
+            padding: 1em 1em 1em 1em;
+            /* height: 180px; */
+        }
+
+        div.paper div {
+            padding-left: 250px;
+        }
+
+        div.paper div.wide {
+            padding-right: 0px;
+        }
+
+        img.paper {
+            margin-bottom: 0.5em;
+            margin-right: 1.0em;
+            float: left;
+            width: 220px;
+        }
+
+        div.spanner {
+            clear: both;
+        }
+
+        span.blurb {
+            font-style: italic;
+            display: block;
+            margin-top: 0.75em;
+            margin-bottom: 0.5em;
+        }
+
+        pre,
+        code {
+            font-family: 'Lucida Console', 'Andale Mono', 'Courier', monospaced;
+            margin: 1em 0;
+            padding: 0;
+        }
+
+        div.paper pre {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <br />
+    <div class="center-block grid-item--width2">
+        <div>
+            <br />
+            <img style="float:left; margin: 16px 20px;" src="images/profile.jpg" width="250">
+
+            <h1 style="font-size:24pt;">
+                <a href="../">Miroslav Radojević</a>
+                <!-- style="text-decoration: inherit;color: inherit;" -->
+                <span style="color:#473e35;font-size:22pt">(Мирослав Радојевић)</span>
+            </h1>
+
+            <p>
+                Versatile engineer with experience in academic research, R&D and software development. Often engaged in
+                binding practical software application with analytical, scientific knowledge. Interest in
+                computer vision, image/signal/data analysis and software engineering.
+                <!-- My research interests lie in computer vision and machine learning, with particular interest in the
+                  intersection of 3D vision and deep learning, and its applications on autonomous driving. -->
+            </p>
+
+            <strong>Contact</strong>
+            <p>
+                miroslav.radojevic AT gmail DOT com
+                <br />
+                <!-- +31 68 4703055 -->
+            </p>
+
+        </div>
+    </div>
+
+    <br />
+
+    <div class="center-block grid-item--width2">
+        <div class="panel panel-default  grid-item">
+            <div class="panel-heading">
+                <h2 class="panel-title">Experience</h2>
             </div>
-        <br/>
+            <div class="panel-body">
+                <ul>
+                    <li>2019 - now, R&D engineer (AI and robotics) at Nuctech Netherlands B.V.
+                    <li>2017 - 2019, Software engineer at Becton, Dickinson & Company (BD)
+                    <li>2012 - 2018, Ph.D on Biomedical imaging at Erasmus Medical Center Rotterdam, under supervision
+                        of Prof. <a href="" target="_blank">Erik Meijering</a>
+                    <li>2009 - 2011, MSc in computer vision and robotics (ViBOT), Heriot-Watt University, Universitat de Girona, Université de Bourgogne
+                    <li>2008 - 2009, Development engineer at ABS Electro - Advanced Control Systems, Belgrade, Serbia
+                        <!-- 
+                <li>Jan. 2015 - May 2015, visited <a href="http://learning.cs.toronto.edu" target="_blank">Machine Learning
+                    Group</a> at University of Toronto, woking with Prof. <a href="http://www.cs.toronto.edu/~urtasun"
+                    target="_blank">Raquel Urtasun</a> and Prof. <a href="http://www.cs.utoronto.ca/~fidler"
+                    target="_blank">Sanja Fidler</a>. 
+                -->
+                </ul>
+            </div>
+        </div>
+    </div>
 
+    <div class="center-block grid-item--width2">
+        <div class="panel panel-default  grid-item">
+            <div class="panel-heading">
+                <h2 class="panel-title">Publications</h2>
+            </div>
+            <div class="panel-body">
+                <!-- <ul>
+                    <li> Paper
+                </ul> -->
+                <div class="paper">
+                    <table>
+                        <tr>
+                            <!-- <td> <img class="float:left; margin: 0px 0px;" src="images/syziphus.svg.png" width="153" /> </td> -->
+                            <td class="paper">
+                                <b>Spherical-Patches Extraction for Deep-Learning Based Critical Points Detection in 3D Neuron Microscopy Images</b></br>
+                                Weixun Chen, Min Liu, <strong>Miroslav Radojevic</strong>, Author</br>
+                                <i>International Conference on Computer Vision (<b>ICCV</b>), 2019</i></br>
+                                <a href="javascript:toggle_visibility('iccv19chen')">Bibtex</a></br>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-    </body>
+                <div class="paper">
+                    <table>
+                        <tr>
+                            <!-- 
+                            <td> 
+                                <img class="float:left; margin: 0px 0px;" src="images/syziphus.svg.png" width="153" /> 
+                            </td> 
+                            -->
+                            <td class="paper">
+                                <b>Spherical-Patches Extraction for Deep-Learning Based Critical Points Detection in 3D Neuron Microscopy Images</b></br>
+                                Weixun Chen, Min Liu, <strong>Miroslav Radojevic</strong>, Author</br>
+                                <i>International Conference on Computer Vision (<b>ICCV</b>), 2019</i></br>
+                                <a href="javascript:toggle_visibility('iccv19chen')">Bibtex</a></br>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
 </html>
