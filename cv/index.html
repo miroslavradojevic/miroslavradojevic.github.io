@@ -44,12 +44,14 @@
     </script>
     <style type="text/css">
         .grid-item {
-            width: 980px;
-            margin: 10px
+            width: 100%;
+            max-width: 980px; /* allow shrinkage on small screens */
+            margin: 10px auto; /* center on large screens */
         }
 
         .grid-item--width2 {
-            width: 980px;
+            width: 100%;
+            max-width: 980px;
         }
 
         a {
@@ -85,7 +87,9 @@
             margin-bottom: 0.5em;
             margin-right: 1.0em;
             float: left;
-            width: 220px;
+            max-width: 100%;   /* scale image down */
+            /*width: 220px;*/
+            height: auto;
         }
 
         div.spanner {
@@ -112,6 +116,18 @@
         .retain-color {
             color: inherit;
         }
+
+        @media (max-width: 767px) {
+            div.paper div {
+                padding-left: 0;
+            }
+
+            img.paper {
+                float: none;
+                display: block;
+                margin: 0 auto 1em auto;
+            }
+        }
     </style>
 </head>
 
@@ -120,7 +136,7 @@
     <div class="center-block grid-item--width2">
         <div>
             <br />
-            <img style="float:left; margin: 16px 20px;" src="images/profile.jpg" width="250">
+            <img style="float:left; margin: 16px 20px; max-width: 100%; height:auto;" src="images/profile.jpg" width="250">
 
             <h1 style="font-size:24pt;">
                 <a href="../">Miroslav Radojević
