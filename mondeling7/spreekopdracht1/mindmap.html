@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="nl">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Mindmap – Zoutbatterij</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: #1a1a2e;
+                font-family: "Segoe UI", sans-serif;
+                overflow: hidden;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+
+            .node circle {
+                stroke-width: 2.5;
+                cursor: pointer;
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+                transition: r 0.2s;
+            }
+
+            .node text {
+                pointer-events: none;
+                font-family: "Segoe UI", sans-serif;
+                dominant-baseline: middle;
+                text-anchor: middle;
+            }
+
+            .link {
+                fill: none;
+                stroke-opacity: 0.5;
+                stroke-width: 2;
+            }
+
+            .tooltip {
+                position: absolute;
+                background: rgba(255, 255, 255, 0.95);
+                color: #1a1a2e;
+                padding: 10px 14px;
+                border-radius: 10px;
+                font-size: 13px;
+                max-width: 260px;
+                line-height: 1.5;
+                pointer-events: none;
+                display: none;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+                border-left: 4px solid #e94560;
+            }
+
+            #legend {
+                position: absolute;
+                bottom: 18px;
+                left: 18px;
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 12px;
+                line-height: 1.8;
+            }
+
+            #title {
+                position: absolute;
+                top: 18px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 15px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                pointer-events: none;
+                white-space: nowrap;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title">Mindmap — Zoutbatterij (3 min. speech)</div>
+        <svg id="svg"></svg>
+        <div class="tooltip" id="tooltip"></div>
+        <div id="legend">
+            🖱 Hover voor toelichting &nbsp;|&nbsp; 🖱 Sleep om te verschuiven
+            &nbsp;|&nbsp; 🖱 Scroll om te zoomen
+        </div>
+
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script>
+            const data = {
+                id: "root",
+                label: "Zoutbatterij",
+                color: "#e94560",
+                textColor: "#fff",
+                radius: 54,
+                note: 'VRT NWS artikel:\n"Als dit werkt is het een absolute doorbraak:\nChinezen maken elektrische auto met een zoutbatterij."',
+                children: [
+                    {
+                        id: "intro",
+                        label: "Waarom dit\nonderwerp?",
+                        color: "#0f3460",
+                        textColor: "#a8d8ea",
+                        radius: 42,
+                        note: "• Batterijtechnologie evolueert snel\n• Elektrische mobiliteit = energietransitie\n• Zorgen over omgang met grondstoffen (lithium)",
+                        children: [
+                            {
+                                id: "i1",
+                                label: "Boeiend",
+                                color: "#16213e",
+                                textColor: "#a8d8ea",
+                                radius: 28,
+                                note: "Persoonlijke interesse in hoe batterijtechnologie evolueert.",
+                            },
+                            {
+                                id: "i2",
+                                label: "Energie-\ntransitie",
+                                color: "#16213e",
+                                textColor: "#a8d8ea",
+                                radius: 28,
+                                note: "Elektrische mobiliteit speelt een belangrijke rol in de energietransitie.",
+                            },
+                            {
+                                id: "i3",
+                                label: "Milieu &\ngrondstoffen",
+                                color: "#16213e",
+                                textColor: "#a8d8ea",
+                                radius: 28,
+                                note: "Zorgen over hoe we omgaan met schaarse grondstoffen zoals lithium.",
+                            },
+                        ],
+                    },
+                    {
+                        id: "who",
+                        label: "Wie & Wat?",
+                        color: "#533483",
+                        textColor: "#e2d9f3",
+                        radius: 42,
+                        note: "• Changan Automobile (China)\n• Nevo A06 — eerste auto met Na-ion batterij\n• Batterij geproduceerd door CATL\n• Niet echt 'zout' — geen keukenzout",
+                        children: [
+                            {
+                                id: "w1",
+                                label: "Changan\nAutomobile",
+                                color: "#3b2569",
+                                textColor: "#e2d9f3",
+                                radius: 28,
+                                note: "Chinese autobouwer die binnenkort een elektrische wagen lanceert met natrium-ionbatterij.",
+                            },
+                            {
+                                id: "w2",
+                                label: "Nevo A06",
+                                color: "#3b2569",
+                                textColor: "#e2d9f3",
+                                radius: 28,
+                                note: "De eerste personenwagen met natrium-ionbatterij technologie.",
+                            },
+                            {
+                                id: "w3",
+                                label: "CATL",
+                                color: "#3b2569",
+                                textColor: "#e2d9f3",
+                                radius: 28,
+                                note: "Grote Chinese batterijenproducent die de natrium-ionbatterij maakt.",
+                            },
+                            {
+                                id: "w4",
+                                label: "Niet echt\n'zout'",
+                                color: "#3b2569",
+                                textColor: "#e2d9f3",
+                                radius: 28,
+                                note: "Wordt 'zoutbatterij' genoemd, maar bevat geen gewoon keukenzout.",
+                            },
+                        ],
+                    },
+                    {
+                        id: "lithium",
+                        label: "Probleem\nLithium",
+                        color: "#c84b31",
+                        textColor: "#ffe0d0",
+                        radius: 42,
+                        note: "• Corruptie\n• Schaars\n• Geopolitieke spanningen\n• Vervuilt leefomgeving van mensen\n• Bedreigt watervoorziening\n• Schaadt de planeet",
+                        children: [
+                            {
+                                id: "l1",
+                                label: "Schaars &\ \n Corruptie",
+                                color: "#8b2e1a",
+                                textColor: "#ffe0d0",
+                                radius: 30,
+                                note: "Lithium is schaars en zorgt voor geopolitieke spanningen tussen landen en corruptie.",
+                            },
+                            {
+                                id: "l2",
+                                label: "Vervuiling &\nwater",
+                                color: "#8b2e1a",
+                                textColor: "#ffe0d0",
+                                radius: 34,
+                                note: "De winning van lithium vervuilt de leefomgeving van mensen en bedreigt de watervoorziening.",
+                            },
+                            {
+                                id: "l3",
+                                label: "Planeet-\nschade",
+                                color: "#8b2e1a",
+                                textColor: "#ffe0d0",
+                                radius: 28,
+                                note: "Lithiumwinning schaadt de planeet op grote schaal.",
+                            },
+                        ],
+                    },
+                    {
+                        id: "voordelen",
+                        label: "Voordelen\nNatrium",
+                        color: "#1a7a4a",
+                        textColor: "#b7f0d0",
+                        radius: 42,
+                        note: "• Natrium komt overal voor\n• Minder afhankelijkheid\n• Lagere kosten\n• Geen kobalt of nikkel nodig",
+                        children: [
+                            {
+                                id: "v1",
+                                label: "Overal\nbeschikbaar",
+                                color: "#145c37",
+                                textColor: "#b7f0d0",
+                                radius: 30,
+                                note: "Natrium komt bijna overal ter wereld voor — geen schaarste.",
+                            },
+                            {
+                                id: "v2",
+                                label: "Minder\nafhankelijk",
+                                color: "#145c37",
+                                textColor: "#b7f0d0",
+                                radius: 30,
+                                note: "Minder geopolitieke afhankelijkheid en mogelijk lagere productiekosten.",
+                            },
+                            {
+                                id: "v3",
+                                label: "Geen kobalt\nof nikkel",
+                                color: "#145c37",
+                                textColor: "#b7f0d0",
+                                radius: 34,
+                                note: "Geen zeldzame metalen zoals kobalt of nikkel nodig voor de productie.",
+                            },
+                        ],
+                    },
+                    {
+                        id: "specs",
+                        label: "Specs &\nTech",
+                        color: "#0a6e8a",
+                        textColor: "#b0e8f5",
+                        radius: 42,
+                        note: "• 45 kWh, ~400 km (later 600 km)\n• Minder brandrisico\n• Beter bij hoge én lage temperaturen\n• Meer laad-/ontlaadcycli\n• Volledige capaciteit bruikbaar\n• Energiedichtheid iets lager",
+                        children: [
+                            {
+                                id: "s1",
+                                label: "45 kWh\n400 km",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 28,
+                                note: "Eerste versie: 45 kWh batterij, actieradius ~400 km. Later mogelijk 600 km.",
+                            },
+                            {
+                                id: "s2",
+                                label: "Minder\nbrand",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 28,
+                                note: "Minder risico op brand dan lithium-ionbatterijen.",
+                            },
+                            {
+                                id: "s3",
+                                label: "Hoge & lage\ntemp.",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 34,
+                                note: "Presteert beter bij zowel hoge als lage temperaturen.",
+                            },
+                            {
+                                id: "t1",
+                                label: "Meer\ncycli",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 28,
+                                note: "Natrium-ionbatterijen doorstaan meer laad- en ontlaadcycli dan lithiumbatterijen.",
+                            },
+                            {
+                                id: "t2",
+                                label: "100%\ncapaciteit",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 28,
+                                note: "In tegenstelling tot lithiumbatterijen kunnen ze hun volledige capaciteit benutten.",
+                            },
+                            {
+                                id: "t3",
+                                label: "Energie-\ndichtheid ↓",
+                                color: "#074f63",
+                                textColor: "#b0e8f5",
+                                radius: 32,
+                                note: "Het enige nadeel: energiedichtheid blijft voorlopig iets achter op lithium.",
+                            },
+                        ],
+                    },
+                    {
+                        id: "prijs",
+                        label: "Prijs &\nConclusie",
+                        color: "#2d6a8a",
+                        textColor: "#cce8ff",
+                        radius: 42,
+                        note: "• Prijs daalt ~€5.000\n• Historische doorbraak mogelijk\n• Experts blijven voorzichtig\n• Afwachten hoe het in praktijk werkt",
+                        children: [
+                            {
+                                id: "p1",
+                                label: "€5.000\ngoedkoper",
+                                color: "#1d4e6a",
+                                textColor: "#cce8ff",
+                                radius: 28,
+                                note: "Batterij = groot deel van kostprijs → prijsdaling van ~€5.000 mogelijk.",
+                            },
+                            {
+                                id: "p2",
+                                label: "Historische\ndoorbraak?",
+                                color: "#1d4e6a",
+                                textColor: "#cce8ff",
+                                radius: 32,
+                                note: "Experts spreken van een mogelijke historische doorbraak, maar blijven voorzichtig.",
+                            },
+                            {
+                                id: "p3",
+                                label: "Nog\nafwachten",
+                                color: "#1d4e6a",
+                                textColor: "#cce8ff",
+                                radius: 28,
+                                note: "De technologie moet zich nog bewijzen in de praktijk.",
+                            },
+                        ],
+                    },
+                ],
+            };
+
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const cx = width / 2;
+            const cy = height / 2;
+
+            const nodes = [];
+            const links = [];
+
+            function flatten(node, parent) {
+                nodes.push(node);
+                if (parent)
+                    links.push({
+                        source: parent.id,
+                        target: node.id,
+                        color: node.color,
+                    });
+                if (node.children)
+                    node.children.forEach((c) => flatten(c, node));
+            }
+            flatten(data, null);
+
+            const rootNode = nodes.find((n) => n.id === "root");
+            rootNode.fx = cx;
+            rootNode.fy = cy;
+
+            const branches = data.children;
+            const angleStep = (2 * Math.PI) / branches.length;
+            branches.forEach((b, i) => {
+                const angle = i * angleStep - Math.PI / 2;
+                b.x = cx + Math.cos(angle) * 210;
+                b.y = cy + Math.sin(angle) * 210;
+                if (b.children) {
+                    const childAngleStep = Math.PI / (b.children.length + 1);
+                    const baseAngle = angle - Math.PI / 2;
+                    b.children.forEach((c, j) => {
+                        const ca = baseAngle + (j + 1) * childAngleStep + angle;
+                        c.x = b.x + Math.cos(ca) * 130;
+                        c.y = b.y + Math.sin(ca) * 130;
+                    });
+                }
+            });
+
+            const svg = d3.select("#svg");
+            const g = svg.append("g");
+
+            svg.call(
+                d3
+                    .zoom()
+                    .scaleExtent([0.3, 2.5])
+                    .on("zoom", (e) => g.attr("transform", e.transform)),
+            );
+
+            const linkSel = g
+                .append("g")
+                .selectAll("line")
+                .data(links)
+                .join("line")
+                .attr("class", "link")
+                .attr("stroke", (d) => d.color);
+
+            const nodeSel = g
+                .append("g")
+                .selectAll("g")
+                .data(nodes)
+                .join("g")
+                .attr("class", "node")
+                .call(
+                    d3
+                        .drag()
+                        .on("start", (event, d) => {
+                            if (!event.active) sim.alphaTarget(0.3).restart();
+                            d.fx = d.x;
+                            d.fy = d.y;
+                        })
+                        .on("drag", (event, d) => {
+                            d.fx = event.x;
+                            d.fy = event.y;
+                        })
+                        .on("end", (event, d) => {
+                            if (!event.active) sim.alphaTarget(0);
+                            if (d.id !== "root") {
+                                d.fx = null;
+                                d.fy = null;
+                            }
+                        }),
+                );
+
+            nodeSel
+                .append("circle")
+                .attr("r", (d) => d.radius)
+                .attr("fill", (d) => d.color)
+                .attr("stroke", (d) => d.textColor)
+                .on("mouseover", (event, d) => {
+                    if (d.note) {
+                        const tip = document.getElementById("tooltip");
+                        tip.style.display = "block";
+                        tip.innerHTML = d.note.replace(/\n/g, "<br>");
+                        tip.style.borderLeftColor = d.color;
+                    }
+                })
+                .on("mousemove", (event) => {
+                    const tip = document.getElementById("tooltip");
+                    tip.style.left = event.pageX + 15 + "px";
+                    tip.style.top = event.pageY - 10 + "px";
+                })
+                .on("mouseout", () => {
+                    document.getElementById("tooltip").style.display = "none";
+                });
+
+            nodeSel.each(function (d) {
+                const lines = d.label.split("\n");
+                const el = d3.select(this);
+                lines.forEach((line, i) => {
+                    el.append("text")
+                        .attr("fill", d.textColor)
+                        .attr("font-size", d.radius > 40 ? "13px" : "11px")
+                        .attr("font-weight", d.id === "root" ? "700" : "600")
+                        .attr("dy", `${(i - (lines.length - 1) / 2) * 1.3}em`)
+                        .text(line);
+                });
+            });
+
+            const sim = d3
+                .forceSimulation(nodes)
+                .force(
+                    "link",
+                    d3
+                        .forceLink(links)
+                        .id((d) => d.id)
+                        .distance((d) => {
+                            const t = nodes.find(
+                                (n) =>
+                                    n.id === d.target.id || n.id === d.target,
+                            );
+                            return t && t.radius < 35 ? 120 : 195;
+                        })
+                        .strength(0.6),
+                )
+                .force("charge", d3.forceManyBody().strength(-550))
+                .force(
+                    "collide",
+                    d3.forceCollide().radius((d) => d.radius + 14),
+                )
+                .force("x", d3.forceX(cx).strength(0.04))
+                .force("y", d3.forceY(cy).strength(0.04))
+                .on("tick", () => {
+                    linkSel
+                        .attr("x1", (d) => d.source.x)
+                        .attr("y1", (d) => d.source.y)
+                        .attr("x2", (d) => d.target.x)
+                        .attr("y2", (d) => d.target.y);
+
+                    nodeSel.attr(
+                        "transform",
+                        (d) => `translate(${d.x},${d.y})`,
+                    );
+                });
+        </script>
+    </body>
+</html>
